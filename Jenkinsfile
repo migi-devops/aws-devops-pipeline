@@ -13,7 +13,7 @@ pipeline {
         maven 'maven-3.9'
     }
     environment {
-        IMAGE_NAME = 'docker pull miguelprint/demo-app:java-maven-1.0'
+        IMAGE_NAME = 'miguelprint/demo-app:java-maven-1.0'
     }
     stages {
         stage('build app') {
