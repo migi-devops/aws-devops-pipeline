@@ -136,6 +136,8 @@ miguelprint/demo-app:java-maven-1.0
 miguelprint/demo-app:java-maven-2.0
 ```
 
+<img src="assets/one of the images pushed.png" width="600">
+
 #### 5️⃣ AWS EC2 Deployment
 
 The Jenkins pipeline deploys containers remotely to an EC2 instance using SSH credentials.
@@ -341,18 +343,6 @@ This project demonstrates practical implementation of:
 * Build Automation
 * Container Lifecycle Management
 
-#### 🚀 Key Learning Outcomes
-
-#### Technical Skills Strengthened
-
-* Jenkins pipeline debugging
-* Git recovery workflows
-* Docker troubleshooting
-* AWS EC2 administration
-* SSH deployment automation
-* CI/CD architecture design
-* Infrastructure reliability practices
-
 #### 🔮 Future Improvements
 
 Planned next steps:
@@ -364,18 +354,6 @@ Planned next steps:
 * Monitoring with Prometheus & Grafana
 * Automated rollback strategies
 * Blue/Green deployments
-
-#### 📌 Project Highlights
-
-- Jenkins Multibranch Pipeline
-- Automated Docker Builds
-- AWS EC2 Deployment
-- Remote Deployment via SSH
-- Real Production-Style Debugging
-- Docker Cleanup & Recovery
-- Git Recovery Using Reflog & Reset
-- Pipeline Stabilization
-- AWS Infrastructure Integration
 
 **Author:** Miguel (DevOps Engineer)
 
