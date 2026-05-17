@@ -1,6 +1,31 @@
-### 🚀 AWS Services Capstone Project — CI/CD Pipeline with Jenkins, Docker & AWS EC2
+### 🚀 Production-Style CI/CD Deployment Pipeline on AWS EC2
 
-Production-style DevOps project demonstrating automated CI/CD workflows, Docker container deployment, AWS EC2 integration, and real-world debugging scenarios using Jenkins pipelines.
+Automated Jenkins pipeline for building, containerizing, and deploying a Java Spring Boot application to AWS EC2, with real-world troubleshooting around Git branch recovery, Docker image conflicts, port allocation failures, and secure remote deployment.
+
+#### Business / Production Problem
+
+Manual application deployment is slow, error-prone, and difficult to reproduce across environments.
+
+This project solves that by implementing an automated CI/CD workflow that:
+
+- Builds and packages a Java application with Maven
+- Creates versioned Docker images
+- Deploys the container to AWS EC2 through Jenkins
+- Uses credentials management instead of hardcoded secrets
+- Handles operational issues such as stale containers, port conflicts, image cleanup, and failed remote deployments
+
+#### DevOps Engineering Value
+
+This project demonstrates how a DevOps engineer improves delivery reliability by combining automation, cloud infrastructure, containerization, and operational recovery.
+
+In a real company, the same pattern supports:
+
+- Faster release cycles
+- Repeatable deployments
+- Reduced manual SSH work
+- Better deployment traceability
+- Lower risk of environment drift
+- Cleaner incident recovery during failed deployments
 
 #### 📌 Project Overview
 
