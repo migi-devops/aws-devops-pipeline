@@ -154,6 +154,8 @@ Example EC2 host:
 ec2-user@3.8.155.161
 ```
 
+<img src="assets/running images and containers of ec2-user@3.8.155.161.png" width="600">
+
 #### 🧪 Real-World Challenges & Debugging
 
 One of the strongest parts of this project was the amount of production-style troubleshooting involved.
@@ -166,7 +168,7 @@ This project was not just about “following tutorials” — it required diagno
 
 After cloning the repository, branches were incorrectly tracking `upstream` instead of `origin`.
 
-<img width="1344" height="966" alt="9 - after cloning, tracking upstream instead of origin" src="https://github.com/user-attachments/assets/4ba1120e-2013-487a-9d56-370090f1d23e" />
+<img src="assets/9 - after cloning, tracking upstream instead of origin.png" width="600">
 
 This caused:
 
@@ -199,6 +201,8 @@ This restored the correct repository state and stabilized the multibranch pipeli
 #### Problem
 
 Multiple Docker images and stopped containers created conflicts during deployments.
+
+<img src="assets/container images mixed up.png" width="600">
 
 Errors encountered:
 
@@ -243,8 +247,6 @@ Bind for 0.0.0.0:3080 failed: port is already allocated
 * Removed stale containers
 * Restarted deployment with corrected port mapping
 
----
-
 #### ❌ Challenge 4 — Jenkins Deployment Failures
 
 #### Problem
@@ -270,6 +272,8 @@ Final pipeline stages:
 * Deploy
 
 All stages completed successfully in the final pipeline execution.
+
+<img src="assets/Build ok after fixing upstream.png" width="600">
 
 #### 🔐 Jenkins Credentials & Security
 
