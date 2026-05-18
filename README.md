@@ -1,98 +1,114 @@
 ### 🚀 Production-Style CI/CD Deployment Pipeline on AWS EC2
 
-Automated Jenkins pipeline for building, containerizing, and deploying a Java Spring Boot application to AWS EC2, with real-world troubleshooting around Git branch recovery, Docker image conflicts, port allocation failures, and secure remote deployment.
+Automated Jenkins pipeline for building, versioning, containerizing, and deploying applications to AWS EC2 with real-world operational troubleshooting, Git recovery, Docker lifecycle management, and remote deployment automation.
 
-#### Business / Production Problem
-
-Manual application deployment is slow, error-prone, and difficult to reproduce across environments.
-
-This project solves that by implementing an automated CI/CD workflow that:
-
-- Builds and packages a Java application with Maven
-- Creates versioned Docker images
-- Deploys the container to AWS EC2 through Jenkins
-- Uses credentials management instead of hardcoded secrets
-- Handles operational issues such as stale containers, port conflicts, image cleanup, and failed remote deployments
-
-#### DevOps Engineering Value
-
-This project demonstrates how a DevOps engineer improves delivery reliability by combining automation, cloud infrastructure, containerization, and operational recovery.
-
-In a real company, the same pattern supports:
-
-- Faster release cycles
-- Repeatable deployments
-- Reduced manual SSH work
-- Better deployment traceability
-- Lower risk of environment drift
-- Cleaner incident recovery during failed deployments
+---
 
 #### 📌 Project Overview
 
-This capstone project demonstrates a complete CI/CD workflow that automates:
+This project demonstrates a production-oriented CI/CD workflow designed to reduce manual deployment effort and improve deployment consistency.
 
-- Application build & packaging
-- Docker image creation
-- Jenkins multibranch pipelines
-- Automated deployment to AWS EC2
-- Docker container lifecycle management
-- Remote deployment over SSH
-- Real-world troubleshooting & recovery
+The pipeline automates:
 
-The project extends the DevOps Bootcamp AWS Services module into a more production-oriented implementation by focusing heavily on:
+* Maven application builds
+* Automated version incrementing
+* Docker image creation & tagging
+* Docker Hub image publishing
+* Remote container deployment to AWS EC2
+* Jenkins multibranch pipeline execution
+* Secure SSH-based deployment automation
+* Operational recovery from failed deployments
 
-* Infrastructure troubleshooting
-* Pipeline reliability
-* Docker image management
+Unlike tutorial-only implementations, this project includes real deployment failures encountered during development and the troubleshooting process used to stabilize the pipeline.
+
+---
+
+#### 💼 Business Problem
+
+Manual deployments introduce several operational risks:
+
+* Inconsistent deployments across environments
+* Slow release cycles
+* Human deployment errors
+* Difficulty recovering failed deployments
+* Lack of deployment traceability
+* Environment drift between servers
+
+This project solves those problems by implementing an automated CI/CD deployment pipeline that delivers repeatable and traceable application deployments.
+
+---
+
+#### ⚙️ DevOps Engineering Value
+
+This project demonstrates practical DevOps engineering capabilities across:
+
+* CI/CD automation
+* Jenkins Pipeline as Code
+* Cloud infrastructure management
+* Docker containerization
 * Git branch recovery
-* Jenkins debugging
+* Secure remote deployments
+* Infrastructure troubleshooting
 * Deployment consistency
+* Operational debugging
 
-Unlike tutorial-only implementations, this project includes actual operational failures encountered during development and the fixes applied to stabilize the pipeline.
+The implementation focuses heavily on operational reliability rather than only successful happy-path deployments.
+
+---
 
 #### 🏗️ Architecture
 
 ```text
-GitHub
-   ↓
+GitHub Repository
+        ↓
 Webhook Trigger
-   ↓
+        ↓
 Jenkins Multibranch Pipeline
-   ↓
-Maven Build
-   ↓
-Docker Build & Tag
-   ↓
+        ↓
+Maven Build & Version Increment
+        ↓
+Docker Build & Tagging
+        ↓
 Docker Hub Registry
-   ↓
+        ↓
 SSH Deployment to AWS EC2
-   ↓
+        ↓
 Running Docker Container
 ```
 
+---
+
+#### ☁️ AWS Infrastructure
+
+#### AWS Services Used
+
+| Service         | Purpose                   |
+| --------------- | ------------------------- |
+| Amazon EC2      | Application hosting       |
+| IAM             | Access management         |
+| Security Groups | Network access control    |
+| SSH Key Pairs   | Secure remote access      |
+| AWS CLI         | Infrastructure management |
+
+---
+
 #### ⚙️ Tech Stack
 
-| Area             | Technologies      |
-| ---------------- | ----------------- |
-| CI/CD            | Jenkins           |
-| Cloud            | AWS EC2           |
-| Build Tool       | Apache Maven      |
-| Containerization | Docker            |
-| SCM              | Git & GitHub      |
-| Language         | Java              |
-| Pipeline         | Jenkinsfile       |
-| Remote Access    | SSH               |
-| OS               | Amazon Linux 2023 |
-| IDE              | VS Code           |
+| Area                   | Technologies      |
+| ---------------------- | ----------------- |
+| CI/CD                  | Jenkins           |
+| Cloud                  | AWS EC2           |
+| Build Tool             | Apache Maven      |
+| Containerization       | Docker            |
+| Source Control         | Git & GitHub      |
+| Language               | Java              |
+| Runtime                | Spring Boot       |
+| Remote Access          | SSH               |
+| OS                     | Amazon Linux 2023 |
+| Infrastructure Tooling | AWS CLI           |
+| IDE                    | VS Code           |
 
-#### ☁️ AWS Services Used
-
-| AWS Service     | Purpose                 |
-| --------------- | ----------------------- |
-| Amazon EC2      | Application hosting     |
-| Security Groups | Port access control     |
-| IAM             | Access & authentication |
-| SSH Key Pairs   | Secure remote access    |
+---
 
 #### 📂 Repository Structure
 
@@ -102,19 +118,22 @@ aws-devops-pipeline/
 ├── Jenkinsfile
 ├── pom.xml
 ├── Dockerfile
-├── .gitignore
-├── src/
+├── docker-compose.yaml
 ├── README.md
+├── src/
 └── assets/
 ```
 
+---
+
 #### 🔄 CI/CD Pipeline Workflow
 
-#### 1️⃣ Source Code Management
+#### 1️⃣ Source Control Integration
 
 * GitHub repository connected to Jenkins Multibranch Pipeline
 * Feature branches automatically discovered
-* Webhook triggers automated builds on push events
+* Pipeline triggered automatically through GitHub webhooks
+* Branch isolation used for safer pipeline testing
 
 Example branches:
 
@@ -125,84 +144,162 @@ master
 starting-code
 ```
 
-#### 2️⃣ Build Stage
+---
 
-The application is compiled using Maven.
+#### 2️⃣ Automated Maven Build
 
-Pipeline performs:
+The pipeline compiles and packages the Java application using Maven.
+
+Pipeline stages include:
 
 * Dependency resolution
-* Application packaging
-* Artifact generation
 * Test execution
+* Artifact packaging
+* Build verification
 
-The Maven project configuration includes Spring Boot and compiler configuration. 
+The Maven configuration also supports automated version management using the Maven Versions Plugin.
 
-#### 3️⃣ Docker Build Stage
+The project configuration in `pom.xml` includes Spring Boot dependencies and compiler configuration. fileciteturn0file0
 
-Docker images are built automatically during the pipeline.
+---
 
-Example:
+#### 3️⃣ Automated Version Incrementing
+
+One of the key engineering improvements in this project was automating application version management inside the Jenkins pipeline.
+
+The pipeline:
+
+* Parses the current Maven version
+* Increments application versions automatically
+* Commits updated versions back to Git
+* Pushes changes through Jenkins automation
+
+This improves:
+
+* Build traceability
+* Deployment consistency
+* Release versioning
+* Artifact tracking
+
+Example Maven commands used:
+
+```bash
+mvn build-helper:parse-version versions:set \
+-DnewVersion=$VERSION.$BUILD_NUMBER \
+versions:commit
+```
+
+---
+
+#### 4️⃣ Docker Image Build & Tagging
+
+Docker images are built automatically during Jenkins execution.
+
+Example build:
 
 ```bash
 docker build -t miguelprint/my-app:1.0 .
 ```
 
-This produced a successfully built Docker image locally before deployment.
+Images are tagged with deployment versions for traceability.
 
-#### 4️⃣ Docker Registry Integration
-
-Images are tagged and pushed to Docker Hub for deployment consistency.
-
-Example image tags used:
+Example image tags:
 
 ```bash
 miguelprint/demo-app:java-maven-1.0
 miguelprint/demo-app:java-maven-2.0
 ```
 
-<img src="assets/one of the images pushed.png" width="600">
+The project also included a separate Node.js application used for Docker image build and registry testing during the AWS deployment exercises.
 
-#### 5️⃣ AWS EC2 Deployment
+The Node.js app included:
 
-The Jenkins pipeline deploys containers remotely to an EC2 instance using SSH credentials.
+* Express server
+* MongoDB integration
+* Dockerized application runtime
 
-Deployment tasks included:
+The application configuration is defined in `package.json` and `server.js`. fileciteturn0file2 fileciteturn0file3
 
-* Connecting via SSH
-* Pulling Docker images
-* Running containers
-* Mapping exposed ports
-* Managing running containers
+The frontend profile application used during Docker testing is defined in `index.html`. fileciteturn0file1
 
-Example EC2 host:
+---
+
+#### 5️⃣ Docker Registry Integration
+
+Docker images were pushed to Docker Hub for deployment consistency across environments.
+
+This allows:
+
+* Centralized image storage
+* Consistent deployments
+* Remote image pulls from EC2
+* Immutable deployment artifacts
+
+---
+
+#### 6️⃣ AWS EC2 Deployment
+
+The Jenkins pipeline deploys containers remotely to AWS EC2 using SSH credentials stored securely in Jenkins.
+
+Deployment automation includes:
+
+* SSH connection to EC2
+* Pulling updated Docker images
+* Stopping existing containers
+* Starting updated containers
+* Port mapping configuration
+* Container cleanup operations
+
+Example deployment target:
 
 ```bash
 ec2-user@3.8.155.161
 ```
 
-<img src="assets/running images and containers of ec2-user@3.8.155.161.png" width="600">
+The EC2 environment was configured with:
 
-#### 🧪 Real-World Challenges & Debugging
+* Amazon Linux 2023
+* Docker Engine
+* Docker Compose
+* Security groups
+* SSH key authentication
 
-One of the strongest parts of this project was the amount of production-style troubleshooting involved.
+---
 
-This project was not just about “following tutorials” — it required diagnosing actual CI/CD failures and infrastructure issues.
+#### 🔐 Jenkins Credentials & Security
+
+The pipeline uses Jenkins Credentials Management instead of hardcoded secrets.
+
+Configured credentials included:
+
+* Docker Hub credentials
+* EC2 SSH private key
+* Git authentication
+
+This follows basic DevOps security practices by separating credentials from application code.
+
+---
+
+#### 🧪 Real-World Operational Troubleshooting
+
+One of the strongest parts of this project was handling production-style deployment failures.
+
+The focus was not only pipeline creation, but also operational recovery and infrastructure troubleshooting.
+
+---
 
 #### ❌ Challenge 1 — Git Upstream Tracking Misconfiguration
 
 #### Problem
 
-After cloning the repository, branches were incorrectly tracking `upstream` instead of `origin`.
-
-<img src="assets/9 - after cloning, tracking upstream instead of origin.png" width="600">
+After cloning the repository, multiple branches incorrectly tracked `upstream` instead of `origin`.
 
 This caused:
 
-* Branch confusion
-* Incorrect pull/push targets
-* Merge inconsistencies
-* Jenkins pipeline instability
+* Incorrect push targets
+* Branch divergence
+* Merge confusion
+* Jenkins pipeline inconsistencies
 
 #### Example Symptoms
 
@@ -213,7 +310,7 @@ origin/jenkins-jobs
 
 #### Resolution
 
-Used Git recovery techniques including:
+Recovered repository state using:
 
 ```bash
 git reflog --oneline
@@ -221,17 +318,17 @@ git reset --hard
 git push --force-with-lease
 ```
 
-This restored the correct repository state and stabilized the multibranch pipeline.
+This stabilized the Jenkins multibranch pipeline and restored the correct Git branch state.
 
-#### ❌ Challenge 2 — Docker Image Conflicts
+---
+
+#### ❌ Challenge 2 — Docker Image & Container Conflicts
 
 #### Problem
 
-Multiple Docker images and stopped containers created conflicts during deployments.
+Multiple stopped containers and outdated Docker images created deployment conflicts.
 
-<img src="assets/container images mixed up.png" width="600">
-
-Errors encountered:
+Example error:
 
 ```bash
 image is being used by stopped container
@@ -240,12 +337,13 @@ image is being used by stopped container
 This caused:
 
 * Deployment failures
-* Disk usage growth
 * Environment inconsistency
+* Disk usage growth
+* Image cleanup issues
 
 #### Resolution
 
-Performed container cleanup and image management:
+Performed Docker cleanup and lifecycle management:
 
 ```bash
 docker rm <container-id>
@@ -254,7 +352,9 @@ docker ps -a
 docker images
 ```
 
-This restored deployment consistency on the EC2 host.
+This restored deployment consistency on the EC2 instance.
+
+---
 
 #### ❌ Challenge 3 — Port Allocation Failures
 
@@ -262,7 +362,7 @@ This restored deployment consistency on the EC2 host.
 
 Deployment attempts failed because ports were already allocated by existing containers.
 
-Example issue:
+Example:
 
 ```bash
 Bind for 0.0.0.0:3080 failed: port is already allocated
@@ -270,53 +370,42 @@ Bind for 0.0.0.0:3080 failed: port is already allocated
 
 #### Resolution
 
-* Identified running containers
+* Identified conflicting containers
 * Removed stale containers
-* Restarted deployment with corrected port mapping
+* Corrected Docker port mappings
+* Restarted deployment
+
+This restored successful application deployment.
+
+---
 
 #### ❌ Challenge 4 — Jenkins Deployment Failures
 
 #### Problem
 
-Initial pipeline deployments failed during the deploy stage.
-
-Issues included:
+The deploy stage initially failed due to:
 
 * Incorrect Docker image references
-* SSH deployment problems
-* Remote container conflicts
-* Branch tracking problems
+* Remote deployment conflicts
+* SSH deployment issues
+* Git branch tracking problems
 
 #### Resolution
 
-The Jenkins pipeline was corrected and rebuilt successfully.
+The pipeline was corrected and successfully rebuilt.
 
-Final pipeline stages:
+Final successful stages:
 
 * Checkout SCM
 * Test
 * Build
 * Deploy
 
-All stages completed successfully in the final pipeline execution.
+The final pipeline execution completed successfully after stabilizing Git tracking and Docker deployment logic.
 
-<img src="assets/Build ok after fixing upstream.png" width="600">
+---
 
-#### 🔐 Jenkins Credentials & Security
-
-The pipeline used Jenkins Credentials Management for secure authentication.
-
-Credentials configured included:
-
-* Docker Hub credentials
-* EC2 SSH private key
-* Git authentication
-
-This avoided hardcoding sensitive credentials into the pipeline.
-
-#### 📦 Docker Container Management
-
-During deployment, several operational tasks were performed:
+#### 🐳 Docker Operations Performed
 
 #### Running Containers
 
@@ -330,7 +419,7 @@ docker ps
 docker rm <container-id>
 ```
 
-#### Remove Images
+#### Remove Docker Images
 
 ```bash
 docker rmi -f <image-id>
@@ -339,58 +428,90 @@ docker rmi -f <image-id>
 #### Verify Running Services
 
 ```bash
-docker images
 docker ps -a
+docker images
 ```
 
-#### ☁️ AWS Infrastructure Setup
+---
 
-#### EC2 Configuration
+#### 🌐 Networking & Infrastructure Concepts Practiced
 
-* Amazon Linux 2023
-* Docker installed manually
-* Security groups configured
-* Port 8080 exposed
-* SSH access configured via PEM key
+This project also included foundational AWS networking and infrastructure concepts:
+
+* CIDR notation
+* Subnetting
+* Security groups
+* EC2 networking
+* Port exposure
+* SSH connectivity
+* AWS CLI infrastructure management
+
+Example concepts practiced:
+
+```text
+10.0.0.0/16
+10.0.1.0/24
+```
+
+---
 
 #### 📈 DevOps Concepts Demonstrated
 
 This project demonstrates practical implementation of:
 
 * CI/CD Automation
-* Pipeline as Code
-* Multibranch Jenkins Pipelines
+* Jenkins Pipeline as Code
+* Automated Versioning
 * Docker Containerization
 * AWS EC2 Deployments
 * Git Branch Recovery
-* Remote Deployment Automation
 * Infrastructure Troubleshooting
-* Build Automation
+* Remote Deployment Automation
 * Container Lifecycle Management
+* Secure Credential Management
+* Build Automation
+* Docker Registry Integration
+
+---
 
 #### 🔮 Future Improvements
 
 Planned next steps:
 
-* Deploy images to AWS ECR
-* Kubernetes deployment with EKS
+* Push images to AWS ECR
+* Kubernetes deployment with Amazon EKS
 * Infrastructure as Code with Terraform
 * Jenkins Shared Libraries
 * Monitoring with Prometheus & Grafana
-* Automated rollback strategies
 * Blue/Green deployments
+* Automated rollback strategies
+* GitOps deployment workflows
 
-**Author:** Miguel (DevOps Engineer)
+---
 
-Focused on building production-oriented DevOps projects with real operational troubleshooting experience, cloud infrastructure integration, and CI/CD automation.
+#### 👨‍💻 Author
 
-**Learning Source:** TechWorld with Nana DevOps Bootcamp
+**Miguel — DevOps Engineer**
 
-This implementation significantly extends the original exercises through additional debugging, deployment recovery, infrastructure troubleshooting, and production-style operational practices.
+Focused on building production-oriented DevOps projects involving CI/CD automation, cloud infrastructure, Docker containerization, and operational troubleshooting.
 
-#### 📎 Supporting Project Files
+---
 
-* Jenkins pipeline configuration included in uploaded project files
-* Maven project configuration included in `pom.xml` 
-* Git ignore configuration included in `.gitignore` 
-* Previous CI/CD project structure reference provided in uploaded markdown 
+#### 📚 Learning Source
+
+This project was built while completing the AWS Services section of the DevOps Bootcamp by urlTechWorld with Nana[https://www.techworld-with-nana.com/](https://www.techworld-with-nana.com/).
+
+The implementation extends the original exercises through additional debugging, deployment recovery, Git troubleshooting, infrastructure management, and production-style operational practices.
+
+---
+
+#### 📎 Project Highlights
+
+* Automated Jenkins deployment pipeline
+* AWS EC2 remote deployments
+* Docker image lifecycle management
+* Automated Maven versioning
+* Git branch recovery & troubleshooting
+* Jenkins multibranch pipeline setup
+* Real operational debugging experience
+* Production-style deployment workflow
