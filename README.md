@@ -499,7 +499,7 @@ Focused on building production-oriented DevOps projects involving CI/CD automati
 
 #### 📚 Learning Source
 
-This project was built while completing the AWS Services section of the DevOps Bootcamp by urlTechWorld with Nana[https://www.techworld-with-nana.com/](https://www.techworld-with-nana.com/).
+This project was built while completing the AWS Services section of the DevOps Bootcamp by TechWorld with Nana.
 
 The implementation extends the original exercises through additional debugging, deployment recovery, Git troubleshooting, infrastructure management, and production-style operational practices.
 
