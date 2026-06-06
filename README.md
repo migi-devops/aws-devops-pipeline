@@ -148,18 +148,23 @@ starting-code
 
 #### 2️⃣ Automated Maven Build
 
-The pipeline compiles and packages the Java application using Maven.
+The Jenkins pipeline uses Maven to automate application compilation, testing, packaging, and version management.
 
-Pipeline stages include:
+Build execution includes:
 
-* Dependency resolution
-* Test execution
-* Artifact packaging
-* Build verification
+- Dependency resolution
+- Automated test execution
+- Application packaging
+- Build validation
+- Version management
 
-The Maven configuration also supports automated version management using the Maven Versions Plugin.
+A key enhancement in this project was implementing automated version incrementing as part of the CI/CD workflow. During pipeline execution, Maven updates the application version, allowing each build to produce uniquely identifiable artifacts that improve deployment traceability and release management.
 
-The project configuration in `pom.xml` includes Spring Boot dependencies and compiler configuration. fileciteturn0file0
+This approach eliminates manual version updates and helps ensure consistency across builds, Docker images, and deployment environments.
+
+By integrating version management directly into the pipeline, the build process becomes more reliable, repeatable, and aligned with production deployment practices.
+
+A key benefit of this approach is that each build produces uniquely versioned artifacts and Docker images, improving deployment traceability and simplifying application promotion to AWS-hosted environments.
 
 ---
 
