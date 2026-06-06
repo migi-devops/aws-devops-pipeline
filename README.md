@@ -210,17 +210,24 @@ miguelprint/demo-app:java-maven-1.0
 miguelprint/demo-app:java-maven-2.0
 ```
 
-The project also included a separate Node.js application used for Docker image build and registry testing during the AWS deployment exercises.
+The project also included a containerized Node.js application that was used to validate the Docker build, registry integration, and AWS deployment workflow.
 
-The Node.js app included:
+The application consisted of:
 
-* Express server
-* MongoDB integration
+* Express.js backend services
+* MongoDB database integration
 * Dockerized application runtime
+* Simple web interface for deployment verification
 
-The application configuration is defined in `package.json` and `server.js`. fileciteturn0file2 fileciteturn0file3
+This application served as a deployment target throughout the project and was used to validate:
 
-The frontend profile application used during Docker testing is defined in `index.html`. fileciteturn0file1
+* Docker image creation and tagging
+* Docker Hub image publishing
+* Container deployment to AWS EC2
+* Remote host connectivity
+* Jenkins deployment automation
+
+Using a real application instead of a simple "Hello World" container provided a more realistic deployment scenario and helped identify operational issues during image management, container lifecycle operations, and remote deployments.
 
 ---
 
