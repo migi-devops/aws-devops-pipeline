@@ -52,7 +52,7 @@ This project demonstrates practical DevOps engineering capabilities across:
 * Deployment consistency
 * Operational debugging
 
-The implementation focuses heavily on operational reliability rather than only successful happy-path deployments.
+The implementation focuses on deployment reliability, operational troubleshooting, and recovery from real-world failure scenarios.
 
 ---
 
@@ -146,7 +146,7 @@ starting-code
 
 ---
 
-#### 2️⃣ Automated Maven Build
+#### 2️⃣ Automated Maven Build & Version Management
 
 The Jenkins pipeline uses Maven to automate application compilation, testing, packaging, and version management.
 
@@ -156,35 +156,25 @@ Build execution includes:
 - Automated test execution
 - Application packaging
 - Build validation
-- Version management
+- Automated version management
 
-A key enhancement in this project was implementing automated version incrementing as part of the CI/CD workflow. During pipeline execution, Maven updates the application version, allowing each build to produce uniquely identifiable artifacts that improve deployment traceability and release management.
+A key enhancement in this project was integrating automated version incrementing directly into the CI/CD workflow.
 
-This approach eliminates manual version updates and helps ensure consistency across builds, Docker images, and deployment environments.
+During pipeline execution, Maven parses the current application version, increments it automatically, and commits the updated version back to the repository. This ensures that every build produces uniquely identifiable artifacts and Docker images.
 
-By integrating version management directly into the pipeline, the build process becomes more reliable, repeatable, and aligned with production deployment practices.
+The pipeline performs the following version management tasks:
 
-A key benefit of this approach is that each build produces uniquely versioned artifacts and Docker images, improving deployment traceability and simplifying application promotion to AWS-hosted environments.
+- Parse the current Maven version
+- Increment application versions automatically
+- Commit updated versions to Git
+- Push version changes through Jenkins automation
 
----
+This approach improves:
 
-#### 3️⃣ Automated Version Incrementing
-
-One of the key engineering improvements in this project was automating application version management inside the Jenkins pipeline.
-
-The pipeline:
-
-* Parses the current Maven version
-* Increments application versions automatically
-* Commits updated versions back to Git
-* Pushes changes through Jenkins automation
-
-This improves:
-
-* Build traceability
-* Deployment consistency
-* Release versioning
-* Artifact tracking
+Build traceability
+Deployment consistency
+Release management
+Artifact tracking
 
 Example Maven commands used:
 
@@ -194,9 +184,11 @@ mvn build-helper:parse-version versions:set \
 versions:commit
 ```
 
+By integrating version management directly into the build process, deployments become more reliable, repeatable, and easier to track across Docker images and AWS-hosted environments.
+
 ---
 
-#### 4️⃣ Docker Image Build & Tagging
+#### 3️⃣ Docker Image Build & Tagging
 
 Docker images are built automatically during Jenkins execution.
 
@@ -236,7 +228,7 @@ Using a real application instead of a simple "Hello World" container provided a 
 
 ---
 
-#### 5️⃣ Docker Registry Integration
+#### 4️⃣ Docker Registry Integration
 
 Docker images were pushed to Docker Hub for deployment consistency across environments.
 
@@ -249,7 +241,7 @@ This allows:
 
 ---
 
-#### 6️⃣ AWS EC2 Deployment
+#### 5️⃣ AWS EC2 Deployment
 
 The Jenkins pipeline deploys containers remotely to AWS EC2 using SSH credentials stored securely in Jenkins.
 
@@ -265,7 +257,7 @@ Deployment automation includes:
 Example deployment target:
 
 ```bash
-ec2-user@3.8.155.161
+ec2-user@<ec2-host>
 ```
 
 The EC2 environment was configured with:
