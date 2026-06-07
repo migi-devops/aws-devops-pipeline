@@ -148,6 +148,8 @@ starting-code
 
 #### 2️⃣ Automated Maven Build & Version Management
 
+#### Successful Pipeline Execution
+
 The Jenkins pipeline uses Maven to automate application compilation, testing, packaging, and version management.
 
 Build execution includes:
