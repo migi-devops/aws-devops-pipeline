@@ -150,6 +150,10 @@ starting-code
 
 #### Successful Pipeline Execution
 
+The final pipeline successfully completed all stages including version management, application build, Docker image creation, and deployment.
+
+<img src="assets/jenkins-pipeline-success.png" width="700">
+
 The Jenkins pipeline uses Maven to automate application compilation, testing, packaging, and version management.
 
 Build execution includes:
@@ -231,6 +235,12 @@ Using a real application instead of a simple "Hello World" container provided a 
 ---
 
 #### 4️⃣ Docker Registry Integration
+
+#### Docker Hub Images
+
+Docker images were versioned and pushed to Docker Hub to support repeatable deployments across environments.
+
+<img src="assets/dockerhub-images-loop.png" width="700">
 
 Docker images were pushed to Docker Hub for deployment consistency across environments.
 
