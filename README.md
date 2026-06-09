@@ -236,11 +236,11 @@ Using a real application instead of a simple "Hello World" container provided a 
 
 #### 4️⃣ Docker Registry Integration
 
-#### Docker Hub Images
-
 Docker images were versioned and pushed to Docker Hub to support repeatable deployments across environments.
 
-<img src="assets/dockerhub-images-loop.png" width="700">
+<img src="assets/dockerhub-versioned-images.png" width="700">
+
+#### Docker Hub Images
 
 Docker images were pushed to Docker Hub for deployment consistency across environments.
 
@@ -254,6 +254,10 @@ This allows:
 ---
 
 #### 5️⃣ AWS EC2 Deployment
+
+The application was deployed remotely to AWS EC2 using Jenkins automation and SSH-based deployment.
+
+<img src="assets/ec2-container-verification.png" width="700">
 
 The Jenkins pipeline deploys containers remotely to AWS EC2 using SSH credentials stored securely in Jenkins.
 
